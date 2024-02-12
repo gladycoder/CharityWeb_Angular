@@ -1,0 +1,110 @@
+<div class="container-fluid">
+  <!-- Button to Open the Modal -->
+  <button
+    type="button"
+    class="btn btn-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#myExpenseModal"
+  >
+    Open modal
+  </button>
+
+  <!-- The Modal -->
+  <div class="modal fade" id="myExpenseModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Expense Form</h4>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+          ></button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="container mt-1">
+            <form (submit)="onSubmit()" [formGroup]="expenseFormGroup">
+              <div class="mb-3 mt-3">
+                <label for="ename">Expenser Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="ename"
+                  placeholder="Enter ename"
+                  formControlName="expenserName"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="expenseType">Expense Type:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="expenseType"
+                  placeholder="Enter Expense Type"
+                  formControlName="expenseType"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="eamount">Expense Amount:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="eamount"
+                  placeholder="Enter Expense Amount"
+                  formControlName="amount"
+                />
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Expenser Name</th>
+          <th scope="col">Expense Type</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let expense of expenseArray">
+          <td>{{ expense.expenserName }}</td>
+          <td>{{ expense.expenseType }}</td>
+          <td>{{ expense.amount }}</td>
+          <td>
+            <button
+              type="submit"
+              class="btn btn-success mx-1"
+              data-bs-toggle="modal"
+              data-bs-target="#myExpenseModal"
+              (click)="fillForm(expense)"
+            >
+              Edit
+            </button>
+            <button
+              type="submit"
+              class="btn btn-danger"
+              (click)="deleteExpensor(expense)"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

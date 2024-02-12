@@ -1,0 +1,142 @@
+<div class="container-fluid">
+    <!-- Button to Open the Modal -->
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#memberModal"
+    >
+      Open modal
+    </button>
+  
+    <!-- The Modal -->
+    <div class="modal fade" id="memberModal" data-bs-backdrop='static'>
+      <div class="modal-dialog" (hidden)="onModalHidden()">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Member Form</h4>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              (click)="onModalHidden()"
+            ></button>
+          </div>
+  
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="container mt-1">
+              <form [formGroup]="memberFormGroup" (ngSubmit)="onSubmit()" enctype="multipart/form-data" id="form">
+                <div class="mb-3 mt-3">
+                  <label for="dname">Name:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="dname"
+                    placeholder="Enter donor name"
+                    name="name"
+                    formControlName="name"
+                    required
+                  />
+                </div>
+                <div class="form-floating">
+                  <textarea
+                    formControlName="address"
+                    class="form-control"
+                    placeholder="Leave a comment here"
+                    id="floatingTextarea2"
+                    style="height: 100px"
+                    name="address"
+                    required
+                  ></textarea>
+                  <label for="floatingTextarea2">Address</label>
+                </div>
+                <div class="mb-3 mt-3">
+                  <label for="damount">dob:</label>
+                  <input
+                    formControlName="dob"
+                    type="date"
+                    class="form-control"
+                    id="damount"
+                    placeholder="Enter Amount"
+                    name="dob"
+                    required
+                  />
+                </div>
+                <div class="mb-3 mt-3">
+                  <label for="phno">Phone No:</label>
+                  <input
+                    formControlName="phoneno"
+                    type="text"
+                    class="form-control"
+                    id="phno"
+                    placeholder="Enter donor phone no"
+                    name="phoneno"
+                    required
+                  />
+                </div>
+                <div class="mb-3 mt-3">
+                  <label for="bname">Avatar:</label>
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="bname"
+                    placeholder="Enter buyer name"
+                    name="avatar"
+                    (input)="selectImage($event)"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  data-bs-dismiss="modal"
+                >
+                  Submit
+                </button>
+                
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Date Of Birth</th>
+            <th scope="col">Phone.No</th>
+            <th scope="col">Avatar</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let mem of memberArray" >
+            <td>{{ mem.name }}</td>
+            <td>{{ mem.address }}</td>
+            <td>{{ mem.dob }}</td>
+            <td>{{ mem.phoneno }}</td>
+            <td><img src="http://localhost:5000/avatar/{{mem.avatar}}" width="50px" height="50px"></td>
+            <td>
+              <button
+                (click)="fillForm(mem)"
+                class="btn btn-success mx-1"
+                data-bs-toggle="modal"
+                data-bs-target="#memberModal"
+              >
+                Edit
+              </button>
+              <button (click)="deletemember(mem._id)" class="btn btn-danger">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

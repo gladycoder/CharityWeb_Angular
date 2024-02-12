@@ -1,0 +1,133 @@
+<div class="container-fluid">
+  <!-- Button to Open the Modal -->
+  <button
+    type="button"
+    class="btn btn-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#donationModal"
+  >
+    Open modal
+  </button>
+
+  <!-- The Modal -->
+  <div class="modal fade" id="donationModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Donation Form</h4>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+          ></button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="container mt-1">
+            <form [formGroup]="donationFormGroup" (ngSubmit)="onSubmit()">
+              <div class="mb-3 mt-3">
+                <label for="dname">Name:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="dname"
+                  placeholder="Enter donor name"
+                  name="dname"
+                  formControlName="name"
+                />
+              </div>
+              <div class="form-floating">
+                <textarea
+                  formControlName="address"
+                  class="form-control"
+                  placeholder="Leave a comment here"
+                  id="floatingTextarea2"
+                  style="height: 100px"
+                ></textarea>
+                <label for="floatingTextarea2">Address</label>
+              </div>
+              <div class="mb-3 mt-3">
+                <label for="damount">Amount:</label>
+                <input
+                  formControlName="amount"
+                  type="text"
+                  class="form-control"
+                  id="damount"
+                  placeholder="Enter Amount"
+                  name="damount"
+                />
+              </div>
+              <div class="mb-3 mt-3">
+                <label for="phno">Phone No:</label>
+                <input
+                  formControlName="phoneno"
+                  type="text"
+                  class="form-control"
+                  id="phno"
+                  placeholder="Enter donor phone no"
+                  name="phno"
+                />
+              </div>
+              <div class="mb-3 mt-3">
+                <label for="bname">Buyer:</label>
+                <input
+                  formControlName="buyer"
+                  type="text"
+                  class="form-control"
+                  id="bname"
+                  placeholder="Enter buyer name"
+                  name="bname"
+                />
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Address</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Phone.No</th>
+          <th scope="col">Buyer</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let donate of donationArray">
+          <td>{{ donate.name }}</td>
+          <td>{{ donate.address }}</td>
+          <td>{{ donate.amount }}</td>
+          <td>{{ donate.phoneno }}</td>
+          <td>{{ donate.buyer }}</td>
+          <td>
+            <button
+              (click)="fillForm(donate)"
+              class="btn btn-success mx-1"
+              data-bs-toggle="modal"
+              data-bs-target="#donationModal"
+            >
+              Edit
+            </button>
+            <button (click)="deleteDonator(donate._id)" class="btn btn-danger">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
